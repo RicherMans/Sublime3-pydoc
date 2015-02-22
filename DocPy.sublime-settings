@@ -1,0 +1,30 @@
+{
+    // Indicator which parts will be autocompleted in the docstring, default are all available
+    // e.g. :
+    // def add(a,b):
+    //      '''
+    //      Function FUNCTIONNAME
+    //      Summary: THESUMMARY
+    //      Example: EXAMPLE_DESCRIPTION
+    //      Attributes:
+    //          @param attr1 DESC
+    //          @param attr2 DESC
+    //
+    //      Returns: RETURNVALUE
+    //      '''
+    "autocomplete_parts":["function","summary","examples","attributes","returns"],
+
+    // Indicator how many spaces will be indented for the @param argument
+    // Default (-1) are as many as there are configured in tab_size/ tab_width
+    // e.g. using 2:
+    // Attributes:
+    //   @param
+    //   @param
+    // Any other value than -1 will lead to indentation
+    // "indent_spaces":-1,
+
+    // Autocompletes some dummy text for every parameter
+    // If false is set, no autocompletion for the parameters is done, e.g. text
+    // will be empty, but can still be acessed using tab keypress
+    "autocomplete_text":true
+}
