@@ -133,19 +133,19 @@ class PyDocCommand(sublime_plugin.TextCommand):
         #     cursetting.setup(counter,blankspaces,args[0])
         #     out1.append(cursetting.printsetting())
         # print (out1)
+        self.autocomplete_text=False
         if self.autocomplete_text:
-            docstr = '${%d:Insert%s}'
+            docstr = '${%d:InsertHere}'
         else:
             docstr = '${%d}'
-
 
         if 'function' in self.autocomplete_parts:
             out.append(
                 'Function: {}'.format(functionname))
         if 'summary' in self.autocomplete_parts:
-            out.append('Summary: '+docstr%(next(counter),'Summary'))
+            out.append('Summary: '+docstr%(next(counter)))
         if 'examples' in self.autocomplete_parts:
-            out.append('Examples: '+(docstr%next(counter)))
+            out.append('Examples: '+docstr%(next(counter)))
         if 'attributes' in self.autocomplete_parts:
             if len(args[0])>0:
                 out.append('Attributes: ')
@@ -158,27 +158,13 @@ class PyDocCommand(sublime_plugin.TextCommand):
                     # default is a list only containing one item, but we somehow needed
                     # to indicate whaether a default is given or not
                     out.append(
-                        "%s@param (%s) default=%s: ${%d:%s}"%(blankspaces,param, default[0], next(counter),'DocString '+param))
+                        "%s@param (%s) default=%s: "%(blankspaces,param, default[0])+docstr%(next(counter)))
                 else:
-                    out.append("%s@param (%s): ${%d:%s}"%(blankspaces,param, next(counter),'DocString '+param))
+                    out.append("%s@param (%s):"%(blankspaces,param) + docstr%(next(counter)))
         if 'returns' in self.autocomplete_parts:
-            out.append('Returns: ${%s:None}'%(next(counter)))
+            out.append('Returns:'+docstr%(next(counter)))
         # append the closing tags
         out.append('{}'.format(closingcomments))
         # Append the tabstops for the snipplet
 
         return os.linesep.join(out)
-
-def test2():
-    """
-    Function: test2
-    Summary: Insertsummary
-    Examples:
-    Returns: InsertValues
-    """
-    pass
-
-
-def test(args, bb=2, aaa=3):
-    """
-    pass
