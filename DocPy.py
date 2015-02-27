@@ -20,11 +20,12 @@ def writeSnipplet(view, content):
     )
 
 
-def getBlanks(length,spaces):
+def getBlanks(length, spaces):
     if spaces:
-    	return ' '*length
+        return ' ' * length
     else:
         return '\t'
+
 
 def tabmarkCounter():
     counter = 0
@@ -52,7 +53,6 @@ def getBlankSpaces(line, spaces=False):
         return ' ' * len(re.search('^(\s*)', line).group(0))
     else:
         return '\t' * len(re.search('^(\t*)', line).group(0))
-
 
 def searchForFunctionDefiniton(view, point, maxlines=3):
     """
@@ -83,7 +83,6 @@ def searchForFunctionDefiniton(view, point, maxlines=3):
 
 
 class PyDocCommand(sublime_plugin.TextCommand):
-
 
     def run(self, edit):
         syntax = (self.view.settings().get('syntax'))
@@ -122,10 +121,10 @@ class PyDocCommand(sublime_plugin.TextCommand):
         functionname, *args = funcdefargs
         counter = tabmarkCounter()
         tabsorSpaces = self.view.settings().get(
-                'translate_tabs_to_spaces')
+            'translate_tabs_to_spaces')
         tabsize = self.view.settings().get('tab_size')
         # If we have a given indent setting, we use that many indents
-        blankspaces = getBlanks(tabsize,tabsorSpaces)
+        blankspaces = getBlanks(tabsize, tabsorSpaces)
 
         # out1= []
         # for setting in self.autocomplete_parts:
@@ -133,7 +132,6 @@ class PyDocCommand(sublime_plugin.TextCommand):
         #     cursetting.setup(counter,blankspaces,args[0])
         #     out1.append(cursetting.printsetting())
         # print (out1)
-        self.autocomplete_text=False
         if self.autocomplete_text:
             docstr = '${%d:InsertHere}'
         else:
@@ -143,11 +141,11 @@ class PyDocCommand(sublime_plugin.TextCommand):
             out.append(
                 'Function: {}'.format(functionname))
         if 'summary' in self.autocomplete_parts:
-            out.append('Summary: '+docstr%(next(counter)))
+            out.append('Summary: ' + docstr % (next(counter)))
         if 'examples' in self.autocomplete_parts:
-            out.append('Examples: '+docstr%(next(counter)))
+            out.append('Examples: ' + docstr % (next(counter)))
         if 'attributes' in self.autocomplete_parts:
-            if len(args[0])>0:
+            if len(args[0]) > 0:
                 out.append('Attributes: ')
             # if args is empty it is only a single list, but if it's nonempty it's a list of
             # of a list of tuples.
@@ -158,11 +156,12 @@ class PyDocCommand(sublime_plugin.TextCommand):
                     # default is a list only containing one item, but we somehow needed
                     # to indicate whaether a default is given or not
                     out.append(
-                        "%s@param (%s) default=%s: "%(blankspaces,param, default[0])+docstr%(next(counter)))
+                        "%s@param (%s) default=%s: " % (blankspaces, param, default[0]) + docstr % (next(counter)))
                 else:
-                    out.append("%s@param (%s):"%(blankspaces,param) + docstr%(next(counter)))
+                    out.append("%s@param (%s):" %
+                               (blankspaces, param) + docstr % (next(counter)))
         if 'returns' in self.autocomplete_parts:
-            out.append('Returns:'+docstr%(next(counter)))
+            out.append('Returns:' + docstr % (next(counter)))
         # append the closing tags
         out.append('{}'.format(closingcomments))
         # Append the tabstops for the snipplet
