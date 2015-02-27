@@ -13,6 +13,8 @@ Either way install it using Package Control or download it.
 
 Open the install dialog pressing <kbd>Ctrl</kbd><kbd>Shift</kbd><kbd>P</kbd> and type in "Install Package" and then <kbd>Enter</kbd>
 
+Search for DocPy and press once again <kbd>Enter</kbd>
+
 ## Manual Install
 
 Download the package unzip the package files into the sublime directory: 
